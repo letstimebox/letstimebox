@@ -2,18 +2,17 @@
 <svg width="800px" height="360px" viewBox="0 0 800 360" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Logo</title>
     <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-			<g id="Group" fill="none" transform="translate(50, 50)">
-		      <circle id="Oval-Copy" stroke="#979797" stroke-width="20" cx="150" cy="150" r="140"></circle>
-			  <path id="Path" stroke-width="80" stroke="#40E0D0" 
-				d="M 150,10
-					   A 140,140 1,0,0 10,150
-					   "/>
-			  <circle id="Oval" fill="#979797" cx="150" cy="150" r="40"></circle>
-			</g>
-        <text id="Let’s-Timebox" font-family="RobotoSlab-Thin, Roboto Slab" font-size="100" font-weight="300" line-spacing="100" fill="#979797">
-            <tspan x="379.154297" y="256">Let’s</tspan>
-            <tspan x="577.689453" y="256" font-family="RobotoSlab-Bold, Roboto Slab" font-weight="bold"> </tspan>
-            <tspan x="371" y="356" font-family="RobotoSlab-Bold, Roboto Slab" font-weight="bold">Timebox</tspan>
-        </text>
+        <g transform="translate(50.000000, 50.000000)">
+            <text id="Logotype" font-family="RobotoSlab-Thin, Roboto Slab" font-size="100" font-weight="300" line-spacing="100" fill="#979797">
+                <tspan x="329.154297" y="196">Let’s</tspan>
+                <tspan x="527.689453" y="196" font-family="RobotoSlab-Bold, Roboto Slab" font-weight="bold"> </tspan>
+                <tspan x="321" y="296" font-family="RobotoSlab-Bold, Roboto Slab" font-weight="bold">Timebox</tspan>
+            </text>
+            <g id="Icon">
+                <circle id="Outer" stroke="#979797" stroke-width="20" cx="140" cy="140" r="140"></circle>
+                <circle id="Inner" fill="#979797" fill-rule="nonzero" cx="140" cy="140" r="40"></circle>
+                <path d="M140,0 C62.680135,0 0,62.680135 0,140" id="Segment" stroke="#40E0D0" stroke-width="80"></path>
+            </g>
+        </g>
     </g>
 </svg>
