@@ -17,8 +17,30 @@ layout: default
 </style>
 
 <div class="container">
-  <h1>404</h1>
-
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
+  <p id="channel-id">channel</p>
 </div>
+
+<script>
+  if(location.pathname.startsWith("/watch/")) {
+    var channelId = location.pathname.substring(7);
+  
+    document.getElementById('channel-id').innerHTML = channelId;
+    
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('ef8c49c842e4f97adbd5', {
+      cluster: 'eu'
+    });
+
+    var channel = pusher.subscribe(channelId);
+    channel.bind('start-timer', function(data) {
+      alert(JSON.stringify(data));
+    });
+    
+    
+  } else {
+    document.getElementById('channel-id').innerHTML = "Channel not found";
+  }
+</script>
+
