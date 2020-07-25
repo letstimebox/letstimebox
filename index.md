@@ -77,7 +77,7 @@ layout: default
 			circles[2].setAttribute("display", "none")
 			arc.setAttribute("stroke", turqoise)
 			arc.setAttribute("d", getArcPath(minutes))
-			timeDisplay.innerHTML = minutes;
+			timeDisplay.innerHTML = "<strong>" + minutes + "</strong> minutes";
 		} else if (seconds > 0) {
 			circles[0].setAttribute("stroke", grey)
 			circles[1].setAttribute("fill", grey)
@@ -85,7 +85,7 @@ layout: default
 			circles[2].setAttribute("display", "none")
 			arc.setAttribute("stroke", pink)
 			arc.setAttribute("d", getArcPath(1))
-			timeDisplay.innerHTML = seconds;
+			timeDisplay.innerHTML = "<strong>" + seconds + "</strong> seconds";
 		} else {
 			circles[0].setAttribute("stroke", pink)
 			circles[1].setAttribute("fill", pink)
@@ -93,7 +93,7 @@ layout: default
 			circles[2].setAttribute("display", "show")
 			arc.setAttribute("stroke", pink)
 			arc.setAttribute("d", getArcPath(0))
-			timeDisplay.innerHTML = "0";
+			timeDisplay.innerHTML = "Time <strong>is up!</strong>;
 			setTimeout(function(){
 				circles[0].setAttribute("stroke", grey)
 				circles[1].setAttribute("fill", grey)
