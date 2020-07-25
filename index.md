@@ -125,7 +125,7 @@ layout: default
       createChannel: function() {
         letstimebox.channelId = makeid(8);
         const qrcode = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&format=svg&data=' + encodeURI('https://letstimebox.com/watch/' + letstimebox.channelId);
-        document.getElementById("link").innerHTML = 'Watch this timer on <a target="_blank" href="watch/' + letstimebox.channelId + '">watch/' + letstimebox.channelId + '</a>. <br><img src="' + qrcode + '">';
+        document.getElementById("link").innerHTML = 'Watch this timer on <a target="_blank" href="watch/' + letstimebox.channelId + '">watch/' + letstimebox.channelId + '</a>. <br><img src="' + qrcode + '"> <br><a href="' + qrcode + '">Download QR Code</a>';
 
         letstimebox.channel = letstimebox.pusher.subscribe(letstimebox.channelId);
         
