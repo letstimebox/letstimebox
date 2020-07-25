@@ -43,9 +43,9 @@ const startTimer = (function(){
         }
 
         switch(phase) {
-            case "running": timeDisplay.innerHTML = Math.floor(seconds/60); break;
-            case "critical": timeDisplay.innerHTML = seconds; break;
-            default: timeDisplay.innerHTML = "0";
+            case "running": timeDisplay.innerHTML = "<strong>" + Math.floor(seconds/60) + "</strong> minutes"; break;
+            case "critical": timeDisplay.innerHTML = "<strong>" + seconds + "</strong> seconds"; break;
+            default: timeDisplay.innerHTML = "Time is up.";
         }
 
         const elem = function(tagName, attributes){
