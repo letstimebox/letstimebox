@@ -5,7 +5,7 @@ layout: default
 <style type="text/css" media="screen">
   .container {
     margin: 10px auto;
-    max-width: 600px;
+	width: max-content;
     text-align: center;
   }
   h1 {
@@ -18,14 +18,15 @@ layout: default
 
 <div class="container">
   <p id="channel-id">channel</p>
+  <div class="timer" id="remaining-time-indicator"></div>
 </div>
 
 <script>
   if(location.pathname.startsWith("/watch/")) {
     var channelId = location.pathname.substring(7);
-  
+
     document.getElementById('channel-id').innerHTML = channelId;
-    
+
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
@@ -33,12 +34,15 @@ layout: default
       cluster: 'eu'
     });
 
-    var channel = pusher.subscribe(channelId);
+	var channel = pusher.subscribe(channelId);
+	var timer;
     channel.bind('start-timer', function(data) {
-      alert(JSON.stringify(data));
+		if (timer && timer.stop) {
+			timer.stop();
+		}
+		timer = startTimer(document.getElementById("remaining-time-indicator"), parseInt(data.duration));
     });
-    
-    
+
   } else {
     document.getElementById('channel-id').innerHTML = "Channel not found";
   }
