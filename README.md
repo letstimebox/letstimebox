@@ -1,4 +1,4 @@
-![Let's Timebox](branding/Logo.svg =250x)
+![Let's Timebox](branding/Logo.svg  | width=250)
 
 Let's Timebox is a distributed countdown timer, that can be administered from a central platform.
 
