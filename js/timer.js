@@ -33,7 +33,12 @@ const startTimer = (function(){
                 this.innerHTML = text;
             },
             render: function(parent) {
-                const e = document.createElementNS('http://www.w3.org/2000/svg', tagName);
+                let e;
+                if(tagName === "svg") {
+                    e = document.createElementNS('http://www.w3.org/2000/svg', tagName);
+                } else {
+                    e = document.createElementNS(parent.namespaceURI, tagName);
+                }
                 Object.entries(this.attributes).map(function(a) {
                     if (typeof a[1] === "function") {
                         e.setAttribute(a[0],a[1]());
