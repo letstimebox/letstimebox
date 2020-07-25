@@ -2,10 +2,8 @@
 layout: default
 ---
 
-<h1>Let's Timebox</h1>
-
 <input type="button" value="create channel" onclick="letstimebox.createChannel()"/>
-
+ 
 <input type="button" value="start 5min timer" onclick="letstimebox.startNewTimer(5)"/>
 
 
@@ -38,7 +36,8 @@ layout: default
       }),
       createChannel: function() {
         letstimebox.channelId = makeid(8);
-        document.getElementById("link").innerHTML = 'Watch this timer on <a target="_blank" href="watch/' + letstimebox.channelId + '">watch/' + letstimebox.channelId + '</a>. ';
+        const qrcode = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&format=svg&data=' + encodeURI('https://letstimebox.com/watch/' + letstimebox.channelId);
+        document.getElementById("link").innerHTML = 'Watch this timer on <a target="_blank" href="watch/' + letstimebox.channelId + '">watch/' + letstimebox.channelId + '</a>. <br><img src="' + qrcode + '"> <br><a href="' + qrcode + '">Download QR Code</a>';
 
         letstimebox.channel = letstimebox.pusher.subscribe(letstimebox.channelId);
         
