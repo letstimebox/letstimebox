@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="centered">
-	<p id="link">
+	<p id="qrlink">
 	</p>
 
 	<input type="button" value="start 1 min timer" onclick="letstimebox.startNewTimer(1)"/>
@@ -39,8 +39,11 @@ layout: default
       }),
       createChannel: function() {
         letstimebox.channelId = makeid(8);
-        const qrcode = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&format=svg&data=' + encodeURI('https://letstimebox.com/watch/' + letstimebox.channelId);
-        document.getElementById("link").innerHTML = 'Watch this timer on <a target="_blank" href="watch/' + letstimebox.channelId + '">watch/' + letstimebox.channelId + '</a>. <br><br><img src="' + qrcode + '"> <br><br><a href="' + qrcode + '">Download QR Code</a>';
+		const qrserver = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&format=svg&data=';
+		const watchURI = window.location.origin + "/watch/" + letstimebox.channelId;
+	 	const qrcode = qrserver + encodeURI(watchURI + letstimebox.channelId);
+
+		document.getElementById("qrlink").innerHTML = 'Watch this timer on <a target="_blank" href="' + watchURI + '">' + watchURI + '</a>. <br><br><img src="' + qrcode + '">';
 
         letstimebox.channel = letstimebox.pusher.subscribe(letstimebox.channelId);
         letstimebox.channel.bind('start-timer', letstimebox.timerStarted);
