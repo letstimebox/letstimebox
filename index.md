@@ -2,8 +2,6 @@
 layout: default
 ---
 
-<h1>Let's Timebox</h1>
-
 <input type="button" value="create channel" onclick="letstimebox.createChannel()"/>
 
 <input type="button" value="start 5min timer" onclick="letstimebox.startNewTimer(5)"/>
