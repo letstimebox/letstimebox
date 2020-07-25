@@ -3,8 +3,7 @@ layout: default
 ---
 
 <input type="button" value="create channel" onclick="letstimebox.createChannel()"/>
-
-<input type="button" value="start 2min timer" onclick="letstimebox.startNewTimer(2)"/>
+ 
 <input type="button" value="start 5min timer" onclick="letstimebox.startNewTimer(5)"/>
 
 
