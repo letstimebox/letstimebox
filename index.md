@@ -12,8 +12,10 @@ layout: default
 
 <p id="timer"></p>
 
-<svg width="400px" height="400px" xmlns="http://www.w3.org/2000/svg" id="remaining-time-indicator"></svg>
-<div id="remaining-time-display"></div>
+<div class="timer">
+	<svg width="400px" height="400px" xmlns="http://www.w3.org/2000/svg" id="remaining-time-indicator"></svg>
+	<div id="remaining-time-display" class="timer-display"></div>
+</div>
 <script>
 
   // Enable pusher logging - don't include this in production
