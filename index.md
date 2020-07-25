@@ -12,10 +12,7 @@ layout: default
 
 <p id="timer"></p>
 
-<div class="timer">
-	<svg width="400px" height="400px" xmlns="http://www.w3.org/2000/svg" id="remaining-time-indicator"></svg>
-	<div id="remaining-time-display" class="timer-display"></div>
-</div>
+<div class="timer" id="remaining-time-indicator"></div>
 <script>
 
   // Enable pusher logging - don't include this in production
@@ -61,7 +58,7 @@ layout: default
       },
       timerStarted: function(data) {
         document.getElementById("timer").innerHTML = data.duration;
-		startTimer(parseInt(data.duration));
+		startTimer(document.getElementById("remaining-time-indicator"), parseInt(data.duration));
       }
     };
     
