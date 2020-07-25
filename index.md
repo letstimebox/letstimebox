@@ -93,7 +93,7 @@ layout: default
 			circles[2].setAttribute("display", "show")
 			arc.setAttribute("stroke", pink)
 			arc.setAttribute("d", getArcPath(0))
-			timeDisplay.innerHTML = "Time <strong>is up!</strong>;
+			timeDisplay.innerHTML = "Time <strong>is up!</strong>";
 			setTimeout(function(){
 				circles[0].setAttribute("stroke", grey)
 				circles[1].setAttribute("fill", grey)
