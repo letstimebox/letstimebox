@@ -2,15 +2,16 @@
 layout: default
 ---
 
-<input type="button" value="create channel" onclick="letstimebox.createChannel()"/>
- 
-<input type="button" value="start 5min timer" onclick="letstimebox.startNewTimer(5)"/>
-
-
 <p id="link">
 </p>
 
-<p id="timer"></p>
+<input type="button" value="start 1 min timer" onclick="letstimebox.startNewTimer(1)"/>
+<input type="button" value="start 5 min timer" onclick="letstimebox.startNewTimer(5)"/>
+<input type="button" value="start 15 min timer" onclick="letstimebox.startNewTimer(15)"/>
+<input type="button" value="start 45 min timer" onclick="letstimebox.startNewTimer(45)"/>
+
+<input type="number" id="manual-duration" min="1" max="60">
+<input type="button" value="start timer" onclick="letstimebox.startNewTimer(parseInt(document.getElementById('manual-duration').value));"/>
 
 <div class="timer" id="remaining-time-indicator"></div>
 <script>
@@ -29,6 +30,7 @@ layout: default
        return result;
     }
 
+	var timer; 
     window.letstimebox = {
       pusher: new Pusher('ef8c49c842e4f97adbd5', {
         cluster: 'eu'
@@ -39,12 +41,11 @@ layout: default
         document.getElementById("link").innerHTML = 'Watch this timer on <a target="_blank" href="watch/' + letstimebox.channelId + '">watch/' + letstimebox.channelId + '</a>. <br><img src="' + qrcode + '"> <br><a href="' + qrcode + '">Download QR Code</a>';
 
         letstimebox.channel = letstimebox.pusher.subscribe(letstimebox.channelId);
-        
         letstimebox.channel.bind('start-timer', letstimebox.timerStarted);
-        
+
         window.location = "#" + letstimebox.channelId;
       },
-      startNewTimer: function() {
+      startNewTimer: function(duration) {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "https://api.letstimebox.com/timer", true);
 
@@ -53,17 +54,17 @@ layout: default
 
         xhr.send(JSON.stringify({
           "channel": letstimebox.channelId,
-          "duration": "5"
+          "duration": duration
         }));
       },
       timerStarted: function(data) {
-        document.getElementById("timer").innerHTML = data.duration;
-		startTimer(document.getElementById("remaining-time-indicator"), parseInt(data.duration));
+		if (timer && timer.stop) {
+			timer.stop();
+		}
+		timer = startTimer(document.getElementById("remaining-time-indicator"), parseInt(data.duration));
       }
     };
-    
-  
   })();
 
-  
+  window.onload = function(e) {letstimebox.createChannel();};
 </script>
