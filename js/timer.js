@@ -57,7 +57,6 @@ const startTimer = (function(){
     }
 
     const emphasizeTimerDisplay = function(seconds) {
-        console.log(seconds);
         if(seconds % (15 * 60) === 0 ) {
             return true;
         } else if (seconds <= 10* 60 && seconds % 60 === 0) {

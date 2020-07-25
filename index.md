@@ -19,7 +19,7 @@ layout: default
 <script>
 
   // Enable pusher logging - don't include this in production
-  Pusher.logToConsole = true;
+  //Pusher.logToConsole = true;
 
   (function() {
     function makeid(length) {
