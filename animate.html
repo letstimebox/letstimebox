@@ -24,11 +24,11 @@
 				const turqoise = "#40E0D0";
 				const grey = "#979797";
 
-				function getArcPath(minutes) {
+				function getArcPath(seconds) {
 					const margin = 10;
 					const r = 140;
 
-					const degree = minutes * 6; // 60 min is 360 degree
+					const degree = seconds / 10; // 60 min is 360 degree
 					const rad = degree * Math.PI / 180;
 
 					const y = -Math.cos(rad) * r;
@@ -44,27 +44,27 @@
 					const pathString = `M 150,10 A 140,140 1,${dirtyBiggerThanHalf},0 ${svgTargetX}${dirtyFullTimeHack},${svgTargetY}`;
 					return pathString;
 				}
-				function showTime(minutes, seconds) {
-					console.log(minutes, seconds);
+
+				function showTime(seconds) {
 					const svgGroup = document.getElementById("remaining-time-indicator").getElementsByTagName("g")[0];
 					const timeDisplay = document.getElementById("remaining-time-display");
 					const arc = svgGroup.getElementsByTagName("path")[0];
 					const circles = svgGroup.getElementsByTagName("circle");
-					if (minutes >=1) {
+					if (seconds >= 60) {
 						circles[0].setAttribute("stroke", grey)
 						circles[1].setAttribute("fill", grey)
 						circles[2].setAttribute("fill", grey)
 						circles[2].setAttribute("display", "none")
 						arc.setAttribute("stroke", turqoise)
-						arc.setAttribute("d", getArcPath(minutes))
-						timeDisplay.innerHTML = minutes;
+						arc.setAttribute("d", getArcPath(seconds))
+						timeDisplay.innerHTML = Math.floor(seconds/60);
 					} else if (seconds > 0) {
 						circles[0].setAttribute("stroke", grey)
 						circles[1].setAttribute("fill", grey)
 						circles[2].setAttribute("fill", grey)
 						circles[2].setAttribute("display", "none")
 						arc.setAttribute("stroke", pink)
-						arc.setAttribute("d", getArcPath(1))
+						arc.setAttribute("d", getArcPath(seconds))
 						timeDisplay.innerHTML = seconds;
 					} else {
 						circles[0].setAttribute("stroke", pink)
@@ -79,7 +79,7 @@
 							circles[1].setAttribute("fill", grey)
 							circles[2].setAttribute("fill", grey)
 							arc.setAttribute("stroke", turqoise)
-							arc.setAttribute("d", getArcPath(15))
+							arc.setAttribute("d", getArcPath(15*60))
 						}, 30000)
 					}
 				}
@@ -89,14 +89,15 @@
 					const interval = setInterval(function(){
 						console.log(seconds);
 						if(seconds > -1) {
-							showTime(Math.floor(seconds / 60), seconds % 60);
+							showTime(seconds);
 						}
 						else {
 							clearInterval(interval);
 						}
-						seconds -= 1; 
+						seconds -= 10;
 					}, 1000)
 				}
+				startTimerDisplay(2.5);
 			})()
 		</script>
 	</body>
