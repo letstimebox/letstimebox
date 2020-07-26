@@ -12,6 +12,10 @@ class TimeBox extends React.Component {
       cluster: 'eu'
     });
     this.connectToChannel();
+    
+    if (this.props.role == "Timekeeper") {
+      this.controlsRef = React.createRef();
+    }
   }
   
   assignChannelId() {
@@ -34,6 +38,7 @@ class TimeBox extends React.Component {
   connectToChannel() {
     this.channel = this.pusher.subscribe(this.state.channelId);
     this.channel.bind('start-timer', this.timerStarted.bind(this));
+    this.channel.bind('tick', this.tock.bind(this));
     this.channel.bind('reset-timer', this.timerResetted.bind(this));
 
     window.location = "#" + this.state.channelId;
@@ -41,42 +46,61 @@ class TimeBox extends React.Component {
   
   timerStarted(data) {
     this.setState(state => ({
-      timerStatus: "running"
+      timerStatus: "running",
+      remainingSeconds: parseInt(data.duration) * 60
     }));
     
     if(this.props.role == "Timekeeper") {
-      this.setState({
-        remainingSeconds: parseInt(data.duration) * 60
-      })
       this.interval = setInterval(this.tick.bind(this), 1000);
     }
   }
   
   tick() {
     if (this.state.remainingSeconds > -10) {
-      this.setState({
-        remainingSeconds: this.state.remainingSeconds - 1
-      })
+      this.triggerPusherEvent({
+        "event": "tick",
+        "seconds": this.state.remainingSeconds - 1
+      });
     } else {
       clearInterval(this.interval);
-      this.setState(state => ({
-        timerStatus: "new",
-        remainingSeconds: 15 * 60
-      }));
+      this.triggerPusherEvent({
+        "event": "reset-timer"
+      })
+    }
+  }
+  
+  tock(data) {
+    if (this.state.timerStatus == "running") {
+      this.setState({
+        remainingSeconds: parseInt(data.seconds)
+      })
+    } else {
+      this.setState({
+        timerStatus: "running",
+        remainingSeconds: parseInt(data.seconds)
+      });
     }
   }
   
   timerResetted(data) {
-    if (this.state.timerStatus == "running") {
-      clearInterval(this.interval);
-      this.timer.reset();
-    }
     this.setState(state => ({
       timerStatus: "new",
       remainingSeconds: 15 * 60
     }));
   }
   
+  triggerPusherEvent(config) {
+    config.channel = this.state.channelId;
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://api.letstimebox.com/timer", true);
+
+    //Send the proper header information along with the request
+    xhr.setRequestHeader("Content-type", "application/json");
+
+    xhr.send(JSON.stringify(config));
+  }
+
   render() {
     return (
       <div className="pure-g">
@@ -85,7 +109,7 @@ class TimeBox extends React.Component {
             <div>
               <QrLink 
                 channelId={this.state.channelId}/>
-              <TimerControls 
+              <TimerControls triggerPusherEvent={this.triggerPusherEvent.bind(this)}
                 channelId={this.state.channelId}
                 timerStatus={this.state.timerStatus}/>
             </div>

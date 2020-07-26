@@ -9,8 +9,6 @@ class TimerControls extends React.Component {
     this.handleNewManualTimerClick = this.handleNewManualTimerClick.bind(this);
     this.handleResetTimer = this.handleResetTimer.bind(this);
 
-    this.triggerPusherEvent = this.triggerPusherEvent.bind(this);
-    
     this.startNewTimer1 = this.startNewTimer1.bind(this);
     this.startNewTimer5 = this.startNewTimer5.bind(this);
     this.startNewTimer15 = this.startNewTimer15.bind(this);
@@ -22,54 +20,42 @@ class TimerControls extends React.Component {
   }
   
   handleNewManualTimerClick(event) {
-    this.triggerPusherEvent({
+    this.props.triggerPusherEvent({
       "event": "start-timer",
-      "duration": this.state.manualDurationValue
+      "duration": this.state.manualDurationValue * 60
     })
   }
   
   handleResetTimer(event) {
-    this.triggerPusherEvent({
+    this.props.triggerPusherEvent({
       "event": "reset-timer"
     })
     
   }
   
-  triggerPusherEvent(config) {
-    config.channel = this.props.channelId;
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://api.letstimebox.com/timer", true);
-
-    //Send the proper header information along with the request
-    xhr.setRequestHeader("Content-type", "application/json");
-
-    xhr.send(JSON.stringify(config));
-  }
-
   startNewTimer1() {
-    this.triggerPusherEvent({
+    this.props.triggerPusherEvent({
       "event": "start-timer",
       "duration": 1
     })
   }
 
   startNewTimer5() {
-    this.triggerPusherEvent({
+    this.props.triggerPusherEvent({
       "event": "start-timer",
       "duration": 5
     })
   }
 
   startNewTimer15() {
-    this.triggerPusherEvent({
+    this.props.triggerPusherEvent({
       "event": "start-timer",
       "duration": 15
     })
   }
 
   startNewTimer45() {
-    this.triggerPusherEvent({
+    this.props.triggerPusherEvent({
       "event": "start-timer",
       "duration": 45
     })

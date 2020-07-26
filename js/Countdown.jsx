@@ -56,8 +56,8 @@ class Countdown extends React.Component {
     let path = this.getArcPath(this.props.seconds);
     
     return (
-      <div>
-        <svg width="400" height="400">
+      <div className="countdown">
+        <svg className="countdownAnimation" width="400" height="400" viewBox="0 0 400 400">
           <g fill="none" transform="translate(50, 50)">
             <circle cx="150" cy="150" r="140" strokeWidth="20" stroke={phase === "alarm" ? pink : grey}/>
             <path d={path} strokeWidth="80" stroke={phase === "critical" ? pink : turquoise} display={phase === "alarm" ? "none" : "inherit"}/>

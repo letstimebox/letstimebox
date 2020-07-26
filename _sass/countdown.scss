@@ -1,16 +1,31 @@
-.alarm {
-  animation-name: alarm;
-  animation-duration: 2s;
-  animation-iteration-count: 5;
+.countdown {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .alarm {
+    animation-name: alarm;
+    animation-duration: 2s;
+    animation-iteration-count: 5;
+  }
+
+  @keyframes alarm {
+    from {
+      opacity: 100%;
+      r: 20;
+    }
+    to {
+      opacity: 0%;
+      r: 155;
+    }
+  }
+
+  .countdownAnimation {
+      width: auto;
+      height: auto;
+      max-width: 500px;
+  }
+  
 }
 
-@keyframes alarm {
-  from {
-    opacity: 100%;
-    r: 20;
-  }
-  to {
-    opacity: 0%;
-    r: 155;
-  }
-}
