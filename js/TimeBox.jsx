@@ -15,7 +15,10 @@ class TimeBox extends React.Component {
   }
   
   assignChannelId() {
-    return this.makeid(8)
+    if (location.hash && location.hash.length > 1)
+      return location.hash.substring(1);
+    else
+      return this.makeid(8);
   }
   
   makeid(length) {
