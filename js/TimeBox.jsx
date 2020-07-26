@@ -8,21 +8,33 @@ class TimeBox extends React.Component {
       timerStatus: "new",
       remainingSeconds: 15 * 60
     };
-    this.pusher = new Pusher('ef8c49c842e4f97adbd5', {
-      cluster: 'eu'
-    });
-    this.connectToChannel();
     
-    if (this.props.role == "Timekeeper") {
-      this.controlsRef = React.createRef();
+    if (this.state.channelId) {
+      try {
+        this.pusher = new Pusher('ef8c49c842e4f97adbd5', {
+          cluster: 'eu'
+        });
+        this.connectToChannel();
+    
+        if (this.props.role == "Timekeeper") {
+          this.controlsRef = React.createRef();
+        }
+      } catch (e) {
+        this.state.timerStatus = "no connection"
+      }
+    } else {
+      this.state.timerStatus = "no connection"
     }
+    
   }
   
   assignChannelId() {
     if (location.hash && location.hash.length > 1)
       return location.hash.substring(1);
-    else
+    else if (this.props.role == "Timekeeper")
       return this.makeid(8);
+    else
+      return false;
   }
   
   makeid(length) {
@@ -109,24 +121,32 @@ class TimeBox extends React.Component {
   }
 
   render() {
-    return (
-      <div className="pure-g">
-        <div className="pure-u-1">
-          { (this.props.role === "Timekeeper") ?
-            <div>
-              <QrLink 
-                channelId={this.state.channelId}/>
-              <TimerControls triggerPusherEvent={this.triggerPusherEvent.bind(this)}
-                channelId={this.state.channelId}
-                timerStatus={this.state.timerStatus}/>
-            </div>
-            : ""
-          }
-          <Countdown
-            seconds={this.state.remainingSeconds}/>
+    if ( this.state.timerStatus == "no connection") {
+      return (
+        <h1>We could not connect to a Timebox</h1>
+      )
+    } else {
+      return (
+        <div className="pure-g">
+          <div className="pure-u-1">
+            { (this.props.role === "Timekeeper") ?
+              <div>
+                <QrLink 
+                  channelId={this.state.channelId}/>
+                <TimerControls triggerPusherEvent={this.triggerPusherEvent.bind(this)}
+                  channelId={this.state.channelId}
+                  timerStatus={this.state.timerStatus}/>
+              </div>
+              : ""
+            }
+            <Countdown
+              seconds={this.state.remainingSeconds}/>
+          </div>
         </div>
-      </div>
-    );
+      );
+      
+    }
+    
   }
 }
 

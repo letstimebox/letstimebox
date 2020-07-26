@@ -17,7 +17,7 @@ class QrLink extends React.Component {
   render() {
 		const qrserver = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&format=svg&data=';
 		const watchURI = window.location.origin + "/watch#" + this.props.channelId;
-	 	const qrcode = qrserver + encodeURI(watchURI);
+	 	const qrcode = qrserver + encodeURIComponent(watchURI);
     
     let sharingLinks = "";
     if (this.state.sharingEnabled) {
