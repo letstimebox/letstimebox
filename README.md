@@ -1,4 +1,4 @@
-<img src="img/Logo.svg" width="300px" alt="Let's Timebox">
+<img src="img/logo.svg" width="300px" alt="Let's Timebox">
 
 Let's Timebox is a distributed countdown timer, that can be administered from a central platform.
 
