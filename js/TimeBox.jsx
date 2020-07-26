@@ -50,7 +50,7 @@ class TimeBox extends React.Component {
       remainingSeconds: parseInt(data.duration) * 60
     }));
     
-    if(this.props.role == "Timekeeper") {
+    if (this.props.role == "Timekeeper") {
       this.interval = setInterval(this.tick.bind(this), 1000);
     }
   }
@@ -83,6 +83,10 @@ class TimeBox extends React.Component {
   }
   
   timerResetted(data) {
+    if (this.props.role == "Timekeeper" && this.state.timerStatus == "running") {
+      clearInterval(this.interval);
+    }
+    
     this.setState(state => ({
       timerStatus: "new",
       remainingSeconds: 15 * 60
