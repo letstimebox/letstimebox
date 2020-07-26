@@ -1,0 +1,16 @@
+.alarm {
+  animation-name: alarm;
+  animation-duration: 2s;
+  animation-iteration-count: 5;
+}
+
+@keyframes alarm {
+  from {
+    opacity: 100%;
+    r: 20;
+  }
+  to {
+    opacity: 0%;
+    r: 155;
+  }
+}

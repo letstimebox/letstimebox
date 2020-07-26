@@ -3,7 +3,7 @@
 class TimerControls extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { manualDurationValue: 5 };
+    this.state = { manualDurationValue: 15 };
     
     this.handleDurationChange = this.handleDurationChange.bind(this);
     this.handleNewManualTimerClick = this.handleNewManualTimerClick.bind(this);
@@ -80,17 +80,17 @@ class TimerControls extends React.Component {
     if (this.props.timerStatus == "new") {
       return (
         <div>
-        	<div class="pure-u-1">
-            <input type="button" class="pure-button" value="start 1 min" onClick={this.startNewTimer1}/>
-          	<input type="button" class="pure-button" value="start 5 min" onClick={this.startNewTimer5}/>
-          	<input type="button" class="pure-button" value="start 15 min" onClick={this.startNewTimer15}/>
-          	<input type="button" class="pure-button" value="start 45 min" onClick={this.startNewTimer45}/>
+        	<div className="pure-u-1">
+            <input type="button" className="pure-button" value="start 1 min" onClick={this.startNewTimer1}/>
+          	<input type="button" className="pure-button" value="start 5 min" onClick={this.startNewTimer5}/>
+          	<input type="button" className="pure-button" value="start 15 min" onClick={this.startNewTimer15}/>
+          	<input type="button" className="pure-button" value="start 45 min" onClick={this.startNewTimer45}/>
           </div>
-        	<div class="pure-u-1">
-            <form class="pure-form">
+        	<div className="pure-u-1">
+            <form className="pure-form">
               <fieldset>
                 <input type="number" id="manual-duration" value={this.state.manualDurationValue} min="1" max="60" onChange={this.handleDurationChange}/>
-                <input type="submit" class="pure-button pure-button-primary" value="start timer" onClick={this.handleNewManualTimerClick}/>
+                <input type="submit" className="pure-button pure-button-primary" value="start timer" onClick={this.handleNewManualTimerClick}/>
               </fieldset>
             </form>
           </div>
@@ -100,8 +100,8 @@ class TimerControls extends React.Component {
     } else {
       return (
         <div>
-        	<div class="pure-u-1">
-            <input type="button" class="pure-button pure-button-primary" value="Reset timer" onClick={this.handleResetTimer}/>
+        	<div className="pure-u-1">
+            <input type="button" className="pure-button pure-button-primary" value="Reset timer" onClick={this.handleResetTimer}/>
           </div>
         </div>
       );
