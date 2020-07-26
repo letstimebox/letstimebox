@@ -2,21 +2,36 @@
 layout: default
 ---
 
-<div class="centered">
-	<p id="qrlink">
-	</p>
+<div class="content">
+  <div class="pure-g">
+  	<div id="qrlink" class="pure-u-1">
+    </div>
 
-	<input type="button" value="start 1 min timer" onclick="letstimebox.startNewTimer(1)"/>
-	<input type="button" value="start 5 min timer" onclick="letstimebox.startNewTimer(5)"/>
-	<input type="button" value="start 15 min timer" onclick="letstimebox.startNewTimer(15)"/>
-	<input type="button" value="start 45 min timer" onclick="letstimebox.startNewTimer(45)"/>
-	<br>
-	<input type="number" id="manual-duration" min="1" max="60">
-	<input type="button" value="start timer" onclick="letstimebox.startNewTimer(parseInt(document.getElementById('manual-duration').value));"/>
+  	<div class="pure-u-1">
+    	<input type="button" class="pure-button" value="start 1 min" onclick="letstimebox.startNewTimer(1)"/>
+    	<input type="button" class="pure-button" value="start 5 min" onclick="letstimebox.startNewTimer(5)"/>
+    	<input type="button" class="pure-button" value="start 15 min" onclick="letstimebox.startNewTimer(15)"/>
+    	<input type="button" class="pure-button" value="start 45 min" onclick="letstimebox.startNewTimer(45)"/>
+    </div>
 
-	<div class="timer" id="remaining-time-indicator"></div>
+  	<div class="pure-u-1">
+      <form class="pure-form">
+        <fieldset>
+          <input type="number" id="manual-duration" value="5" min="1" max="60">
+          <input type="submit" class="pure-button pure-button-primary" value="start timer" onclick="letstimebox.startNewTimer(parseInt(document.getElementById('manual-duration').value));"/>
+        </fieldset>
+      </form>
+    </div>
+
+  	<div class="pure-u-1">
+      <div class="timer" id="remaining-time-indicator"></div>
+    </div>
+
 </div>
-<script>
+
+
+
+<script type="text/babel">
 
   // Enable pusher logging - don't include this in production
   //Pusher.logToConsole = true;
@@ -39,11 +54,8 @@ layout: default
       }),
       createChannel: function() {
         letstimebox.channelId = makeid(8);
-		const qrserver = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&format=svg&data=';
-		const watchURI = window.location.origin + "/watch/" + letstimebox.channelId;
-	 	const qrcode = qrserver + encodeURI(watchURI + letstimebox.channelId);
-
-		document.getElementById("qrlink").innerHTML = 'Watch this timer on <a target="_blank" href="' + watchURI + '">' + watchURI + '</a>. <br><br><img src="' + qrcode + '">';
+        
+        ReactDOM.render(<QrLink channelId={letstimebox.channelId}/>, document.querySelector('#qrlink'));
 
         letstimebox.channel = letstimebox.pusher.subscribe(letstimebox.channelId);
         letstimebox.channel.bind('start-timer', letstimebox.timerStarted);
@@ -71,5 +83,5 @@ layout: default
     };
   })();
 
-  window.onload = function(e) {letstimebox.createChannel();};
+  letstimebox.createChannel();
 </script>

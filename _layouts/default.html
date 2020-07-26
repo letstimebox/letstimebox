@@ -1,55 +1,25 @@
 <html>
-
 <head>
-    <title>Let's Timebox</title>
-    <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
-    <script src="/js/moment.min.js"></script>
-    <script src="/js/timer.js"></script>
-    <link rel="shortcut icon" href="/img/icon.svg" type="image/svg+xml" sizes="any">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;700&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Let's Timebox</title>
+  <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+  
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
 
-    <style type="text/css" media="screen">
-        <!--
-        body {
-            font-family: 'Roboto Slab', serif;
-            color: #979797;
-            font-weight: 300;
-        }
+  <script src="/js/moment.min.js"></script>
+  <script type="text/babel" src="/js/QrLink.jsx"></script>
 
-        bold, strong {
-            font-weight: 700;
-        }
-        .centered {
-			margin: 10px auto;
-			width: max-content;
-			text-align: center;
-		}
-
-		.timer .timer-display {
-			position: relative;
-			top: -130px;
-		}
-
-		.timer .timer-display.animated {
-			top: -150px;
-			animation-name: example;
-			animation-duration: 1s;
-			animation-iteration-count: infinite;
-			color: #ff2cb4;
-		}
-
-		@keyframes example {
-		  0%   {font-size: 16px; opacity: 1}
-		  100% {font-size: 64px; opacity: 0}
-		}
-    </style>
-
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/screen.css">
 </head>
-
 <body>
-    <img src="/img/logo.svg" height="80" />
-    {{content}}
+  {%include header.html %}
+  
+  {{content}}
 </body>
-
 </html>
