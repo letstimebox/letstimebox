@@ -10,6 +10,12 @@
     text-align: center;
 }
 
+.timer svg {
+    width: auto;
+    height: auto;
+    max-width: 500px;
+}
+
 .timer-display {
     position: relative;
     top: -130px;

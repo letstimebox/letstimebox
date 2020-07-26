@@ -84,9 +84,8 @@ const startTimer = (function () {
         while (root.firstChild) root.removeChild(root.lastChild);
 
         const svgRoot = elem("svg", {
-            width: "400px",
-            height: "400px",
-            xmlns: "http://www.w3.org/2000/svg"
+            xmlns: "http://www.w3.org/2000/svg",
+            viewBox: "0 0 400 400"
         });
 
         const pink = "#ff2cb4";
