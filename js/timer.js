@@ -21,11 +21,66 @@ const startTimer = (function(){
         return pathString;
     }
 
-    const drawTimer = function(rootId, seconds) {
-        const timeDisplay = document.getElementById("remaining-time-display");
-        const svgRoot = document.getElementById(rootId);
-        svgRoot.innerHtml = ' ';
-        while(svgRoot.firstChild) svgRoot.removeChild(svgRoot.lastChild);
+    const elem = function(tagName, attributes){
+        const children = [];
+        return {
+            attributes: attributes,
+            innerHTML: undefined,
+            append: function(child) {
+                children.push(child);
+            },
+            renderText: function (text) {
+                this.innerHTML = text;
+            },
+            render: function(parent) {
+                let e;
+                if(tagName === "svg") {
+                    e = document.createElementNS('http://www.w3.org/2000/svg', tagName);
+                } else {
+                    e = document.createElementNS(parent.namespaceURI, tagName);
+                }
+                Object.entries(this.attributes).map(function(a) {
+                    if (typeof a[1] === "function") {
+                        e.setAttribute(a[0],a[1]());
+                    } else {
+                        e.setAttribute(a[0],a[1]);
+                    }
+                });
+                if (this.innerHTML) {
+                    e.innerHTML = this.innerHTML;
+                } else {
+                    children.forEach(child => child.render(e));
+                }
+                parent.appendChild(e);
+            }
+        }
+    }
+
+    const emphasizeTimerDisplay = function(seconds) {
+        if(seconds % (15 * 60) === 0 ) {
+            return true;
+        } else if (seconds <= 10* 60 && seconds % 60 === 0) {
+            return true;
+        } else if (seconds === 45 || seconds === 30 || seconds === 15) {
+            return true;
+        } else if (seconds <= 10 && seconds >= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    const humanizeTextContent = function(seconds, phase) {
+        switch(phase) {
+            case "running": return "<strong>" + Math.floor(seconds/60) + "</strong> minutes";
+            case "critical": return "<strong>" + seconds + "</strong> seconds";
+            default: return "Time is up.";
+        }
+    }
+
+    const drawTimer = function(root, seconds) {
+        while(root.firstChild) root.removeChild(root.lastChild);
+
+        const svgRoot = elem("svg", {width: "400px", height: "400px", xmlns: "http://www.w3.org/2000/svg"});
 
         const pink = "#ff2cb4";
         const turquoise = "#40E0D0";
@@ -42,38 +97,9 @@ const startTimer = (function(){
             phase = "over";
         }
 
-        switch(phase) {
-            case "running": timeDisplay.innerHTML = "<strong>" + Math.floor(seconds/60) + "</strong> minutes"; break;
-            case "critical": timeDisplay.innerHTML = "<strong>" + seconds + "</strong> seconds"; break;
-            default: timeDisplay.innerHTML = "Time is up.";
-        }
-
-        const elem = function(tagName, attributes){
-            const children = [];
-            return {
-                attributes: attributes,
-                append: function(child) {
-                    children.push(child);
-                },
-                init: function(parent) {
-                    const e = document.createElementNS('http://www.w3.org/2000/svg', tagName);
-                    if (typeof this.render === "function") {
-                        this.render();
-                    }
-                    Object.entries(this.attributes).map(function(a) {
-                        if (typeof a[1] === "function") {
-                            e.setAttribute(a[0],a[1]());
-                        } else {
-                            e.setAttribute(a[0],a[1]);
-                        }
-                    });
-                    children.forEach(child => child.init(e));
-                    parent.appendChild(e);
-                }
-            }
-        }
-
         const timerGroup = elem("g", {fill: "none", transform: "translate(50, 50)"});
+        svgRoot.append(timerGroup);
+
         const outerCircle = elem("circle", {
             cx: "150", cy: "150", r: "140", "stroke-width": "20",
             stroke: () =>  phase === "alarm" ? pink : grey});
@@ -92,22 +118,31 @@ const startTimer = (function(){
         timerGroup.append(innerCircle);
 
         const alarmAnimation = elem("circle", {
-            cx: "150", cy: "150", fill: pink, r: "20", "stroke-width": "0",
-            display: () =>  phase === "alarm" ? "" : "none"});
-        alarmAnimation.append(elem("animate", {attributeName: "r", from: "20", to: "155", dur: "2s", begin: "0s", repeatCount: "15"}));
-        alarmAnimation.append(elem("animate", {attributeName: "opacity", from: "1", to: "0", dur: "2s", begin: "0s", repeatCount: "15"}));
+            cx: "150", cy: "150", fill: pink, r: "20",
+            display: () =>  phase === "alarm" && seconds % 2 === 0 ? "show" : "none"});
+        alarmAnimation.append(elem("animate", {attributeName: "r", from: "20", to: "155", dur: "1s"}));
+        alarmAnimation.append(elem("animate", {attributeName: "opacity", from: "1", to: "0", dur: "1s"}));
         timerGroup.append(alarmAnimation);
 
-        timerGroup.init(svgRoot);
+        svgRoot.render(root);
+
+
+        const timeDisplay = elem("div", {class: "timer-display"});
+        timeDisplay.renderText(humanizeTextContent(seconds, phase));
+        timeDisplay.render(root);
+        if (emphasizeTimerDisplay(seconds)) {
+            const timeDisplayAnimated = elem("div", {class: "timer-display animated"});
+            timeDisplayAnimated.renderText(humanizeTextContent(seconds, phase));
+            timeDisplayAnimated.render(root);
+        }
     };
 
     var interval;
-    const startTimer = function (durationMinutes) {
+    const startTimer = function (root, durationMinutes) {
         var seconds = durationMinutes * 60;
         interval = setInterval(function(){
-            console.log(seconds);
             if(seconds > -31) {
-                drawTimer("remaining-time-indicator", seconds);
+                drawTimer(root, seconds);
             }
             else {
                 clearInterval(interval);
@@ -117,8 +152,8 @@ const startTimer = (function(){
         return {
             stop: () => {clearInterval(interval)},
             restart: () => {clearInterval(interval); startTimer(durationMinutes);},
-            reset: () => {clearInterval(interval); drawTimer("remaining-time-indicator", durationMinutes * 60);},
-            logo: () => {clearInterval(interval); drawTimer("remaining-time-indicator", 15 * 60);}
+            reset: () => {clearInterval(interval); drawTimer(root, durationMinutes * 60);},
+            logo: () => {clearInterval(interval); drawTimer(root, 15 * 60);}
         };
     }
 

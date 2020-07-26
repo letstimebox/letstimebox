@@ -20,15 +20,28 @@
         bold, strong {
             font-weight: 700;
         }
-
-		.timer {
+        .centered {
+			margin: 10px auto;
 			width: max-content;
+			text-align: center;
 		}
 
 		.timer .timer-display {
-			text-align: center;
-			top: -130px;
 			position: relative;
+			top: -130px;
+		}
+
+		.timer .timer-display.animated {
+			top: -150px;
+			animation-name: example;
+			animation-duration: 1s;
+			animation-iteration-count: infinite;
+			color: #ff2cb4;
+		}
+
+		@keyframes example {
+		  0%   {font-size: 16px; opacity: 1}
+		  100% {font-size: 64px; opacity: 0}
 		}
     </style>
 
