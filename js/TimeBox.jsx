@@ -74,6 +74,9 @@ class TimeBox extends React.Component {
       this.setState({
         remainingSeconds: parseInt(data.seconds)
       })
+      if (parseInt(data.seconds) == 0) {
+        document.querySelector("audio").play();
+      }
     } else {
       this.setState({
         timerStatus: "running",

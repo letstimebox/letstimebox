@@ -68,6 +68,7 @@ class Countdown extends React.Component {
             }
           </g>
         </svg>
+        <audio src="/branding/Sound/Ship_Bell-Mike_Koenig-1911209136-soundbible.com-2185-Old-School-Bell.html.mp3" type="audio/mpeg"/>
       </div>
     );
   }
