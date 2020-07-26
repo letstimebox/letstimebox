@@ -46,7 +46,7 @@ class TimeBox extends React.Component {
     
     if(this.props.role == "Timekeeper") {
       this.setState({
-        remainingSeconds: parseInt(data.duration) * 5 // 60
+        remainingSeconds: parseInt(data.duration) * 60
       })
       this.interval = setInterval(this.tick.bind(this), 1000);
     }
