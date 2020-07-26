@@ -30,8 +30,8 @@ class QrLink extends React.Component {
 
     return (
       <div>
-        <label for="enable-sharing" class="pure-checkbox">
-        <input type="checkbox" id="enable-sharing" onClick={this.toggleSharing} checked={this.state.sharingEnabled}/> Enable Sharing</label>
+        <label htmlFor="enable-sharing" className="pure-checkbox">
+        <input type="checkbox" id="enable-sharing" onChange={this.toggleSharing} checked={this.state.sharingEnabled}/> Enable Sharing</label>
         {sharingLinks}
       </div>
     );
