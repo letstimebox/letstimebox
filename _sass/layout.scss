@@ -19,8 +19,8 @@
     top: -158px;
     animation-name: animatedDisplay;
     animation-duration: 1s;
-    animation-iteration-count: infinite;
     color: #ff2cb4;
+    opacity: 0;
 }
 
 @keyframes animatedDisplay {
