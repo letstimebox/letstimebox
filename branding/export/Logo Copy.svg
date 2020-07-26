@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="832px" height="370px" viewBox="0 0 832 370" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Logo Copy</title>
+    <g id="Logo-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon" transform="translate(60.000000, 60.000000)">
+            <circle id="Outer" stroke="#979797" stroke-width="20" cx="140" cy="140" r="140"></circle>
+            <circle id="Inner" fill="#979797" fill-rule="nonzero" cx="140" cy="140" r="40"></circle>
+            <path d="M140,0 C62.680135,0 0,62.680135 0,140" id="Segment" stroke="#40E0D0" stroke-width="80"></path>
+        </g>
+        <text id="Let’s-Timebox" font-family="RobotoSlab-Light, Roboto Slab" font-size="100" font-weight="300" line-spacing="100" fill="#979797">
+            <tspan x="405.46875" y="245">Let’s</tspan>
+            <tspan x="611.035156" y="245" font-family="RobotoSlab-Bold, Roboto Slab" font-weight="bold"> </tspan>
+            <tspan x="400" y="345" font-family="RobotoSlab-Bold, Roboto Slab" font-weight="bold">Timebox</tspan>
+        </text>
+    </g>
+</svg>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400px" height="400px" viewBox="0 0 400 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon_pink</title>
+    <g id="icon_pink" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" fill="#FFFFFF" cx="200" cy="200" r="200"></circle>
+        <g id="Icon" transform="translate(60.000000, 60.000000)">
+            <circle id="Outer" stroke="#979797" stroke-width="20" cx="140" cy="140" r="140"></circle>
+            <circle id="Inner" fill="#979797" fill-rule="nonzero" cx="140" cy="140" r="40"></circle>
+            <path d="M140,0 C62.680135,0 0,62.680135 0,140" id="Segment" stroke="#FF2CB4" stroke-width="80"></path>
+        </g>
+    </g>
+</svg>
