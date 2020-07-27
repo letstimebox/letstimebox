@@ -16,13 +16,13 @@ class TimerControls extends React.Component {
   }
   
   handleDurationChange(event) {
-    this.setState({manualDurationValue: event.target.value})
+    this.setState({manualDurationValue: parseInt(event.target.value) })
   }
   
   handleNewManualTimerClick(event) {
     this.props.triggerPusherEvent({
       "event": "start-timer",
-      "duration": this.state.manualDurationValue * 60
+      "duration": this.state.manualDurationValue
     })
   }
   
