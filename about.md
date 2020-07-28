@@ -15,7 +15,7 @@ capacity.
 ## Who is behind Let's Timebox
 
 Let's Timebox is a project by [Volker Gersabeck](https://twitter.com/thinkingux), 
-[Silvan T. Golega](https://golega.de), and [Martin Gude](https://gude.me).
+[Silvan T. Golega](http://golega.de/), and [Martin Gude](https://gude.me).
 
 ## Why did we create Let's Timebox
 
