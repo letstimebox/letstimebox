@@ -4,11 +4,23 @@
     align-items: center;
     justify-content: center;
 
-    svg, .countdownText {
+    .countdownAnimation, 
+    .countdownText {
         text-align: center;
         grid-column: 1;
         grid-row: 1;
     }
+    .countdownTextValue,
+    .countdownTextUnit {
+        margin: 0px;
+        color: white;
+        font-weight: 800;
+    }
+    .countdownTextValue {
+        font-size: 2em;
+        margin-top: 18px;
+    }
+    
     .alarm {
         animation-name: alarm;
         animation-duration: 2s;
@@ -26,7 +38,7 @@
         }
     }
 
-    .countdownAnimation {
+    .countdownAnimation svg {
         width: auto;
         height: auto;
         max-width: 500px;

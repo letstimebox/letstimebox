@@ -39,11 +39,20 @@ class Countdown extends React.Component {
 
     humanizeSeconds() {
         if (this.props.seconds > 60) {
-            return Math.floor(this.props.seconds / 60) + " minutes";
+            return {
+                value: Math.floor(this.props.seconds / 60),
+                unit: "min"
+            };
         } else if (this.props.seconds > 0) {
-            return this.props.seconds + " seconds";
+            return {
+                value: this.props.seconds,
+                unit: "sec"
+            };
         } else {
-            return "";
+            return {
+                value: "",
+                unit: ""
+            };
         }
     }
 
@@ -78,27 +87,36 @@ class Countdown extends React.Component {
         }
 
         let path = this.getArcPath(this.props.seconds);
+        let textTime = this.humanizeSeconds();
 
         return (
             <div className="countdown">
-                <svg className="countdownAnimation" width="400" height="400" viewBox="0 0 400 400">
-                    <g fill="none" transform="translate(50, 50)">
-                        <circle cx="150" cy="150" r="140" strokeWidth="20" stroke={phase === "alarm" ? pink : grey}/>
+                <div className="countdownAnimation">
+                    <svg width="400" height="400" viewBox="0 0 400 400">
+                        <g fill="none" transform="translate(50, 50)">
+                            <circle cx="150" cy="150" r="140" strokeWidth="20" stroke={phase === "alarm" ? pink : grey}/>
                             <path d={path} strokeWidth="80" stroke={phase === "critical" ? pink : turquoise} display={phase === "alarm" ? "none" : "inherit"}/>
-                                <circle cx="150" cy="150" r="40" fill={phase === "alarm" ? pink : grey}/>
-                                    { phase === "alarm" ?
-                                            <circle cx="150" cy="150" r="20" className="alarm" fill={pink}/>
-                                            : ""
-                                    }
-                                                </g>
-                                                    </svg>
-                                                        <div class="countdownText">{this.humanizeSeconds()}</div>
-                                                            { this.emphasizeCountdownText(this.props.seconds) ?
-                                                                    <div class="countdownText animated"  onload="function(){this.classList.remove('animated');this.classList.add('animated';console.log('wow');)}">{this.humanizeSeconds()}</div>
-                                                                    : ""
-                                                            }
-                                                                        <audio src="/branding/Sound/Ship_Bell-Mike_Koenig-1911209136-soundbible.com-2185-Old-School-Bell.html.mp3" type="audio/mpeg"/>
-                                                                            </div>
+                            <circle cx="150" cy="150" r="40" fill={phase === "alarm" ? pink : grey}/>
+                            { phase === "alarm" ?
+                                <circle cx="150" cy="150" r="20" className="alarm" fill={pink}/>
+                                : ""
+                            }
+                        </g>
+                    </svg>
+                </div>
+                <div className="countdownText">
+                    <p className="countdownTextValue">{textTime.value}</p>
+                    <p className="countdownTextUnit">{textTime.unit}</p>
+                </div>
+                { this.emphasizeCountdownText(this.props.seconds) ?
+                    <div className="countdownText animated" onload="function(){this.classList.remove('animated');this.classList.add('animated';)}">
+                        <p className="countdownTextValue">{textTime.value}</p>
+                        <p className="countdownTextUnit">{textTime.unit}</p>
+                    </div>
+                    : ""
+                }
+                <audio src="/branding/Sound/Ship_Bell-Mike_Koenig-1911209136-soundbible.com-2185-Old-School-Bell.html.mp3" type="audio/mpeg"/>
+            </div>
         );
     }
 }
