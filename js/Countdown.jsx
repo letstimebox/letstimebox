@@ -37,6 +37,30 @@ class Countdown extends React.Component {
     return pathString;
   }
 
+    humanizeSeconds() {
+		if (this.props.seconds > 60) {
+			return Math.floor(this.props.seconds / 60) + " minutes";
+		} else if (this.props.seconds > 0) {
+			return this.props.seconds + " seconds";
+		} else {
+			return "";
+		}
+    }
+
+    emphasizeCountdownText(seconds) {
+        if (seconds % (15 * 60) === 0) {
+            return true;
+        } else if (seconds <= 10 * 60 && seconds % 60 === 0) {
+            return true;
+        } else if (seconds === 45 || seconds === 30 || seconds === 15) {
+            return true;
+//        } else if (seconds <= 10 && seconds >= 0) {
+        } else if (seconds === 10 || seconds === 5 || seconds === 0) {
+            return true;
+        }
+        return false;
+    }
+
   render() {
     const pink = "#ff2cb4";
     const turquoise = "#40E0D0";
@@ -68,6 +92,11 @@ class Countdown extends React.Component {
             }
           </g>
         </svg>
+        <div class="countdownText">{this.humanizeSeconds()}</div>
+        { this.emphasizeCountdownText(this.props.seconds) ?
+            <div class="countdownText animated"  onload="function(){this.classList.remove('animated');this.classList.add('animated';console.log('wow');)}">{this.humanizeSeconds()}</div>
+            : ""
+        }
         <audio src="/branding/Sound/Ship_Bell-Mike_Koenig-1911209136-soundbible.com-2185-Old-School-Bell.html.mp3" type="audio/mpeg"/>
       </div>
     );

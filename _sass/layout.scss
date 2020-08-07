@@ -6,35 +6,6 @@
     line-height: 1.6em;
 }
 
-.timer,
-.centered {
-    text-align: center;
-}
-
-.timer svg {
-    width: auto;
-    height: auto;
-    max-width: 500px;
-}
-
-.timer-display {
-    position: relative;
-    top: -130px;
-}
-
-.timer .timer-display.animated {
-    top: -158px;
-    animation-name: animatedDisplay;
-    animation-duration: 1s;
-    color: #ff2cb4;
-    opacity: 0;
-}
-
-@keyframes animatedDisplay {
-  0%   {font-size: 16px; opacity: 1}
-  100% {font-size: 64px; opacity: 0}
-}
-
 .logo {
     height: 60px;
 }
