@@ -6,5 +6,5 @@ layout: default
 </div>
 
 <script type="text/babel">
-  ReactDOM.render(<TimeBox role="Timekeeper"/>, document.querySelector('#timeBox'));
+  ReactDOM.render(<TimeBox role="Timekeeper" watchUrl="{{ site.watchUrl }}"/>, document.querySelector('#timeBox'));
 </script>

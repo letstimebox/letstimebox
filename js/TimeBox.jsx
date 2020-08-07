@@ -132,7 +132,8 @@ class TimeBox extends React.Component {
             { (this.props.role === "Timekeeper") ?
               <div>
                 <QrLink 
-                  channelId={this.state.channelId}/>
+                  channelId={this.state.channelId}
+                  watchUrl={this.props.watchUrl}/>
                 <TimerControls triggerPusherEvent={this.triggerPusherEvent.bind(this)}
                   channelId={this.state.channelId}
                   timerStatus={this.state.timerStatus}/>
