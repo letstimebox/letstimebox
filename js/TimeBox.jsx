@@ -8,14 +8,14 @@ class TimeBox extends React.Component {
       timerStatus: "new",
       remainingSeconds: 15 * 60
     };
-    
+
     if (this.state.channelId) {
       try {
         this.pusher = new Pusher('ef8c49c842e4f97adbd5', {
           cluster: 'eu'
         });
         this.connectToChannel();
-    
+
         if (this.props.role == "Timekeeper") {
           this.controlsRef = React.createRef();
         }
@@ -25,9 +25,9 @@ class TimeBox extends React.Component {
     } else {
       this.state.timerStatus = "no connection"
     }
-    
+
   }
-  
+
   assignChannelId() {
     if (location.hash && location.hash.length > 1)
       return location.hash.substring(1);
@@ -36,17 +36,17 @@ class TimeBox extends React.Component {
     else
       return false;
   }
-  
+
   makeid(length) {
-     var result           = '';
-     var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
-     var charactersLength = characters.length;
-     for ( var i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-     }
-     return result;
+    var result           = '';
+    var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
-  
+
   connectToChannel() {
     this.channel = this.pusher.subscribe(this.state.channelId);
     this.channel.bind('start-timer', this.timerStarted.bind(this));
@@ -55,18 +55,18 @@ class TimeBox extends React.Component {
 
     window.location = "#" + this.state.channelId;
   }
-  
+
   timerStarted(data) {
     this.setState(state => ({
       timerStatus: "running",
       remainingSeconds: parseInt(data.duration) * 60
     }));
-    
+
     if (this.props.role == "Timekeeper") {
       this.interval = setInterval(this.tick.bind(this), 1000);
     }
   }
-  
+
   tick() {
     if (this.state.remainingSeconds > -10) {
       this.triggerPusherEvent({
@@ -80,7 +80,7 @@ class TimeBox extends React.Component {
       })
     }
   }
-  
+
   tock(data) {
     if (this.state.timerStatus == "running") {
       this.setState({
@@ -96,21 +96,21 @@ class TimeBox extends React.Component {
       });
     }
   }
-  
+
   timerResetted(data) {
     if (this.props.role == "Timekeeper" && this.state.timerStatus == "running") {
       clearInterval(this.interval);
     }
-    
+
     this.setState(state => ({
       timerStatus: "new",
       remainingSeconds: 15 * 60
     }));
   }
-  
+
   triggerPusherEvent(config) {
     config.channel = this.state.channelId;
-    
+
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://api.letstimebox.com/timer", true);
 
@@ -144,9 +144,7 @@ class TimeBox extends React.Component {
           </div>
         </div>
       );
-      
     }
-    
   }
 }
 
