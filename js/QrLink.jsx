@@ -27,17 +27,17 @@ class QrLink extends React.Component {
             sharingLinks = < p >
                 Watch this timer on < a target = "_blank"
             href = {
-                    watchURI
-                } > {
-                    watchURI
-                } < /a>. <
-                br / > < br / >
+                watchURI
+            } > {
+                watchURI
+            }< /a>. <
+            br / > < br / >
                 <
                 img src = {
                     qrcode
                 }
-            /> <
-            /p>;
+            /> < /
+            p > ;
         }
 
         return ( <
