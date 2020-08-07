@@ -106,12 +106,10 @@ class Countdown extends React.Component {
                 </div>
                 <div className="countdownText">
                     <p className="countdownTextValue">{textTime.value}</p>
-                    <p className="countdownTextUnit">{textTime.unit}</p>
                 </div>
                 { this.emphasizeCountdownText(this.props.seconds) ?
                     <div className="countdownText animated" onload="function(){this.classList.remove('animated');this.classList.add('animated';)}">
                         <p className="countdownTextValue">{textTime.value}</p>
-                        <p className="countdownTextUnit">{textTime.unit}</p>
                     </div>
                     : ""
                 }
