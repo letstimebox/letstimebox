@@ -21,4 +21,4 @@ Let's Timebox is a project by [Volker Gersabeck](https://twitter.com/thinkingux)
 
 Martin prepared a distributed workshop and was looking for a distributed countdown timer but did not 
 find a solution. So he told Volker about this problem and a few hours later Silvan, Volker and
-Martin meat for a hack night and started to create Let's Timebox. Amd that is where we are now.
+Martin meat for a hack night and started to create Let's Timebox. And that is where we are now.
