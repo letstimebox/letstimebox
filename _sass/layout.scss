@@ -13,3 +13,10 @@
 .logo {
     height: 60px;
 }
+
+.content div,
+.content input {
+    /* specific css selectors necessary, because pure-g overwrites everything */
+    font-family: 'Roboto Slab', sans-serif;
+    font-weight: 300;
+}
