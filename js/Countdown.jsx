@@ -92,7 +92,7 @@ class Countdown extends React.Component {
         return (
             <div className="countdown">
                 <div className="countdownAnimation">
-                    <svg width="400" height="400" viewBox="0 0 400 400">
+                    <svg width="400" height="400" viewBox="0 0 400 400" xmlns='http://www.w3.org/2000/svg'>
                         <g fill="none" transform="translate(50, 50)">
                             <circle cx="150" cy="150" r="140" strokeWidth="20" stroke={phase === "alarm" ? pink : grey}/>
                             <path d={path} strokeWidth="80" stroke={phase === "critical" ? pink : turquoise} display={phase === "alarm" ? "none" : "inherit"}/>
@@ -116,6 +116,15 @@ class Countdown extends React.Component {
                 <audio src="/branding/Sound/Ship_Bell-Mike_Koenig-1911209136-soundbible.com-2185-Old-School-Bell.html.mp3" type="audio/mpeg"/>
             </div>
         );
+    }
+
+    componentDidUpdate() {
+        // if we have rendered the countdown svg, set it as favicon, too
+        if (document.getElementsByClassName("countdownAnimation").length > 0) {
+            document.getElementById('favicon').href =
+                'data:image/svg+xml,' +
+                encodeURIComponent(document.getElementsByClassName("countdownAnimation")[0].innerHTML);
+        }
     }
 }
 
