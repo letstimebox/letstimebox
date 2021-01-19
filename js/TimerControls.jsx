@@ -24,6 +24,8 @@ class TimerControls extends React.Component {
       "event": "start-timer",
       "duration": this.state.manualDurationValue
     })
+
+    event.preventDefault();
   }
   
   handleResetTimer(event) {
